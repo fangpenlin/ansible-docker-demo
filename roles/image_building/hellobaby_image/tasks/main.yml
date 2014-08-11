@@ -1,0 +1,56 @@
+- assert:
+    that: 
+      - 'hellobaby_version != ""'
+
+- name: install apt packages
+  apt: "name='{{ item }}' state=present"
+  with_items:
+    - git
+    - python-pip
+
+- name: install docker-py
+  pip: name=docker-py version=0.3.1
+
+- name: create build directory
+  file: >
+    dest="{{ hellobaby_build_dir }}"
+    state=directory
+
+- name: clone hellobaby git repo
+  git: >
+    repo="{{ hellobaby_repo }}"
+    dest="{{ hellobaby_build_dir }}/hellobaby"
+    version="v{{ hellobaby_version }}"
+  register: hellobaby_repo
+
+- name: remove git deploy key
+  file: dest=/tmp/github_deploy_key state=absent
+
+- name: archive repo
+  shell: >
+    cd "{{ hellobaby_build_dir }}/{{ item }}" &&
+    git archive -o ../{{ item }}.tar HEAD
+  with_items:
+    - hellobaby
+
+- name: generate templates
+  template: >
+    src="{{ item.src }}"
+    dest="{{ hellobaby_build_dir }}/{{ item.dest }}"
+  with_items:
+    - { src: "Dockerfile", dest: "Dockerfile" }
+    - { src: "runapp.sh", dest: "runapp.sh" }
+
+- name: build image
+  docker_image: >
+    name="{{ hellobaby_image_name }}"
+    tag="{{ hellobaby_image_tag }}"
+    path="{{ hellobaby_build_dir }}"
+    state=build
+
+- name: tag
+  command: >
+    docker tag -f
+    {{ hellobaby_image_name }}:{{ hellobaby_image_tag }}
+    {{ hellobaby_image_name }}:{{ hellobaby_extra_tag }}
+  when: hellobaby_extra_tag != ''

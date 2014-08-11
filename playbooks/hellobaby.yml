@@ -1,0 +1,16 @@
+---
+- name: Build Hello baby app image
+  hosts: all
+  sudo: yes
+  vars_prompt:
+    - name: hellobaby_version
+      prompt: "hellobaby_version"
+      default: "1.0.0"
+      private: no
+    - name: hellobaby_iteration 
+      prompt: "hellobaby_iteration"
+      default: 1
+      private: no
+  roles:
+    - Ansibles.apt
+    - hellobaby_image

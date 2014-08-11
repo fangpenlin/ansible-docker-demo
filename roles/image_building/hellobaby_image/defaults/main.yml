@@ -1,0 +1,12 @@
+hellobaby_base_name: phusion/baseimage
+hellobaby_base_tag: "latest"
+hellobaby_version: ""
+hellobaby_build_dir: /tmp/hellobaby
+hellobaby_repo: https://github.com/victorlin/ansibl-docker-hellobaby.git
+hellobaby_extra_tag: latest
+hellobaby_image_name: hellobaby
+hellobaby_image_tag: >
+    {{ hellobaby_version }}
+    {%- if hellobaby_iteration -%}
+    -{{ hellobaby_iteration }}
+    {%- endif -%}

@@ -1,0 +1,8 @@
+# file: apt/defaults/main.yml
+
+apt_reset_source_list: no         # reset the /etc/apt/sources.list to the default
+apt_cache_valid_time: 3600        # Time (in seconds) the apt cache stays valid
+apt_install_recommends: no        # whether or not to install the "recommended" packages
+apt_install_suggests: no          # whether or not to install the "suggested" packages
+apt_autoremove: yes               # remove packages that are no longer needed for dependencies
+apt_autoclean: yes                # remove .deb files for packages no longer on your system

@@ -1,0 +1,12 @@
+---
+- name: Install dependency galaxy roles
+  hosts: localhost
+  connection: local
+  sudo: no
+  tasks:
+    - name: Install dependency galaxy roles
+      command: >
+        ansible-galaxy install
+        -r ../galaxy-requirements.txt
+        -p ../roles/galaxy
+        --force
