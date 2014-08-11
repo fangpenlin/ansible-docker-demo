@@ -15,7 +15,10 @@ vagrant up
 Then, let's build the image, here you run
 
 ```
-ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant --private-key=~/.vagrant.d/insecure_private_key playbooks/hellobaby.yml
+ansible-playbook \
+  -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory \
+  -u vagrant --private-key=~/.vagrant.d/insecure_private_key \
+  playbooks/hellobaby.yml
 ```
 
 It will prompt you which version and interation number to build like this
