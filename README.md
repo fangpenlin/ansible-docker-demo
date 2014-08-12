@@ -1,7 +1,7 @@
 ansible-docker-demo
 ===================
 
-A simple ansible project for demonstrating how to build a docker image
+A simple ansible project for demonstrating how to build a docker image. Read the article - [Building docker images with ansible](http://victorlin.me/posts/2014/08/11/building-docker-image-with-ansible)
 
 Run the demo
 ============
